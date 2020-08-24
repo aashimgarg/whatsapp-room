@@ -1,0 +1,44 @@
+.sidebar__header {
+    display:flex;
+    align-items:center;
+    justify-content:space-between !important; 
+
+}
+
+.sidebar {
+    flex:.25;
+    flex-direction:column;
+    padding:20px;
+}
+
+ .sidebar__headerRight {
+    display:flex;
+    align-items:center;
+    justify-content:space-between !important; 
+    min-width:5vw; 
+ }
+
+ .sidebar__search {
+     display:flex;
+     align-items:center;
+     background-color:#f6f6f6;
+     height:39px;
+     padding:10px;
+     margin:15px 0;
+ }
+
+ .sidebar__search > input {
+     border:none;
+     margin-left: 10px;
+     height:30px;
+ }
+
+ .sidebar__search > .MuiSvgIcon-root {
+     color:gray;
+     padding:10px;
+ }
+
+ .sidebar__chats {
+     flex:1;
+     background-color: white;
+ }
