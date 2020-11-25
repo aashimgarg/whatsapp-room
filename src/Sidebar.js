@@ -31,6 +31,12 @@ function Sidebar() {
         }
     }, [])
 
+    React.useEffect(() => {
+        setfilteredRooms(rooms.filter(room => {
+            return room.data.name.toLowerCase().indexOf(search.toLowerCase()) !== -1;
+        }))
+    }, [search])
+
     return (
         <div className="sidebar">
             <div className="sidebar__header">
@@ -57,6 +63,11 @@ function Sidebar() {
 
                 {
                         rooms.map(room => (
+                            <SidebarChat key={room.id} id={room.id} name={room.data.name} />
+                        ))
+                }
+                {
+                        filteredRooms.map(room => (
                             <SidebarChat key={room.id} id={room.id} name={room.data.name} />
                         ))
                 }
