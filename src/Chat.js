@@ -5,13 +5,20 @@ import SearchIcon from '@material-ui/icons/Search';
 import AttachFileIcon from '@material-ui/icons/AttachFile';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import InsertEmoticonIcon from '@material-ui/icons/InsertEmoticon';
-import MicIcon from '@material-ui/icons/Mic';
 import { useParams } from 'react-router-dom';
 import db from './firebase';
 import { useStateProviderValue } from "./StateProvider";
 import firebase from 'firebase';
+import EmojiPicker from "emoji-picker-react";
+import {
+    Close,
+} from "@material-ui/icons";
+import SendIcon from "@material-ui/icons/Send";
+import jsPDF from 'jspdf';
 
 function Chat() {
+    const [emojiOpen, setEmojiOpen] = React.useState(false);
+
     const [seed, setSeed] = React.useState('');
     const [input, setInput] = React.useState('');
     const [roomName, setRoomName] = React.useState('');
@@ -55,7 +62,11 @@ function Chat() {
         setInput("");
     };
 
-
+    const handleEmojiClick = (e, emojiObject) => {
+        setInput(input + emojiObject.emoji);
+    };
+  
+  
     return (
         <div className="chat">
             <div className="chat__header">
@@ -70,15 +81,7 @@ function Chat() {
                         ).toUTCString()}</h4>
                 </div>
                 <div className="chat__headerRight">
-                    <IconButton >
-                        <SearchIcon />
-                    </IconButton>
-                    <IconButton >
-                        <AttachFileIcon />
-                    </IconButton>
-                    <IconButton >
-                        <MoreVertIcon />
-                    </IconButton>
+                    <button style={{width:'70px' , height:'25px' , borderRadius:'10px'}} onClick = {jspPdfGenerator} > Backup </button>
                 </div>
             </div>
             <div className="chat__body">
@@ -95,13 +98,39 @@ function Chat() {
                 ))}
 
             </div>
+            <div
+                className="chatWindow--emojiarea"
+                style={{ height: emojiOpen ? "200px" : "0px" }}
+            >
+                <EmojiPicker
+                    onEmojiClick={handleEmojiClick}
+                    disableSearchBar
+                    disableSkinTonePicker
+                />
+            </div>
             <div className="chat__footer">
-                <InsertEmoticonIcon />
+                {emojiOpen ?
+                    <div
+                        className="chatWindow--btn"
+                        onClick={() => setEmojiOpen(false)}
+                        style={{ width: emojiOpen ? 40 : 0 }}
+                    >
+                        <Close style={{ color: "#919191" }} />
+                    </div>
+                    : null
+                }
+                <div className="chatWindow--btn" onClick={() => setEmojiOpen(true)}>
+                    <InsertEmoticonIcon
+                        style={{ color: emojiOpen ? "#009688" : "#919191" }}
+                    />
+                </div>
                 <form>
-                    <input value={input} onChange={e => setInput(e.target.value)} placeholder="Type your text here..." type="text" />
-                    <button onClick={sendMessage} type="submit">Send a message</button>
+                    <input  value={input} onChange={e => setInput(e.target.value)} placeholder="Type your text here..." type="text" />
+                    <button disabled={!input} onClick={sendMessage} type="submit">Send a message</button>
                 </form>
-                <MicIcon />
+                <IconButton >
+                    <SendIcon  onClick={sendMessage} />
+                </IconButton>
             </div>
         </div>
     )

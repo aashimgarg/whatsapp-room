@@ -20,7 +20,7 @@ function App() {
             <Sidebar />
             <Switch>
               <Route path="/rooms/:roomId" component={Chat} />
-              <Route path="/" component ={Chat} />
+              {/* <Route path="/" component ={Sidebar} /> */}
             </Switch>
           </Router>
         </div>

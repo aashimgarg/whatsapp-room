@@ -9,6 +9,7 @@
     flex:.25;
     flex-direction:column;
     padding:20px;
+    overflow:scroll !important;
 }
 
  .sidebar__headerRight {
