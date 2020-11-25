@@ -66,6 +66,20 @@ function Chat() {
         setInput(input + emojiObject.emoji);
     };
   
+    const jspPdfGenerator  = () => {
+        var doc = new jsPDF('p' , 'pt');
+        const nameRoom = "Room - " + roomName
+        doc.text(20 , 30 , nameRoom);
+        for (var i = 0; i < messages.length; i += 1) {
+            const a = messages[i].name 
+            const b = messages[i].message
+            const c = a + " : " + b;
+            const d=  35 + 30*(i+1);
+            doc.text(20 , d , c)        
+      }
+        doc.setFont('courier');
+        doc.save('backup.pdf')
+    }
   
     return (
         <div className="chat">
