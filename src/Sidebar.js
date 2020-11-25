@@ -60,17 +60,17 @@ function Sidebar() {
 
             <div className="sidebar__chats">
                 <SidebarChat addNewChat />
-
-                {
+                
+                { search.length < 1 ? 
                         rooms.map(room => (
                             <SidebarChat key={room.id} id={room.id} name={room.data.name} />
                         ))
-                }
-                {
+                :
+               
                         filteredRooms.map(room => (
                             <SidebarChat key={room.id} id={room.id} name={room.data.name} />
                         ))
-                }
+                        }
 
             </div>
 
