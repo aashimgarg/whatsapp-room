@@ -22,7 +22,6 @@ function Sidebar() {
     React.useEffect(() => {
         const unsubscribe = db
             .collection('rooms')
-            .orderBy("timestamp", "asc")
             .onSnapshot(snapshot => {
                 setRooms(snapshot.docs.map(doc => ({ id: doc.id, data: doc.data() })))
             })
